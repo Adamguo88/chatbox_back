@@ -1,8 +1,8 @@
 // server.js
 
 // --- 載入環境變數 ---
-const dotenv = require("dotenv");
-dotenv.config();
+// const dotenv = require("dotenv");
+// dotenv.config();
 
 // 引入 Express 模組
 const express = require("express");
