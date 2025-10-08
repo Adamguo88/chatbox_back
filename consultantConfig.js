@@ -15,13 +15,6 @@ const consultantConfig = {
         `,
     // 意圖檢查：用於判斷問題是否在範圍內
     topicScope: ["投資組合優化", "退休金規劃", "股票或基金分析", "稅務規劃", "預算管理", "資產配置"],
-    // 統一的 JSON 回答模板
-    jsonTemplate: {
-      status: "success",
-      topic: "總結的問題主題",
-      content: "詳細的專業回答。",
-      disclaimer: "請務必諮詢持牌專業人士。",
-    },
   },
 
   // 保單顧問設定
