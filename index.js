@@ -1,5 +1,5 @@
 // --- 載入環境變數 ---
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
 const cors = require("cors");
 const express = require("express");
 const { GoogleGenAI } = require("@google/genai"); // 引入 Google Gen AI SDK
@@ -8,7 +8,7 @@ const mongoose = require("mongoose"); // 引入 Mongoose
 const ChatRecord = require("./models/ChatRecord"); // history schema
 const ConsultantConfig = require("./models/ConsultantConfigSchema"); // modal schema
 
-dotenv.config();
+// dotenv.config();
 const app = express();
 const PORT = 3000;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
@@ -16,6 +16,13 @@ const MONGO_URI = process.env.MONGO_URI;
 if (!GEMINI_API_KEY) {
   console.error("錯誤: 請在 .env 檔案中設定 GEMINI_API_KEY");
   process.exit(1); // 停止應用程式
+}
+
+if (process.env.NODE_ENV !== "production" && process.env.NODE_ENV !== "preview") {
+  // 假設您的 dotenv 程式碼長這樣
+  require("dotenv").config();
+  // 如果您看到 [dotenv@17.2.2] 的訊息，可能您的程式碼還有其他邏輯，
+  // 請確認您的 dotenv 載入部分只在非生產環境中執行。
 }
 
 // --- 資料庫連線 ---
