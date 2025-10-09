@@ -218,13 +218,17 @@ app.post("/api/history", async (req, res) => {
   }
 });
 // 查詢所有所有聊天紀錄
-app.get("/api/records/all", async (req, res) => {
+app.post("/api/records/all", async (req, res) => {
   // ⚠️ 安全提醒：這個路由將返回大量數據。
   // 在生產環境中，您應該加上認證和分頁 (Pagination) 機制。
+  const { model } = req.body;
+  if (!model) {
+    return res.status(400).json({ message: "錯誤：缺少 model 參數" });
+  }
 
   try {
     // 1. 查詢 MongoDB：使用 find({}) 獲取集合中的所有文件
-    const allRecords = await ChatRecord.find({})
+    const allRecords = await ChatRecord.find({ consultantId: model })
       // 2. 排序：通常會按最後更新時間倒序排列
       .sort({ updatedAt: -1 })
       // 3. 優化：使用 .lean() 讓 Mongoose 返回簡單的 JS 對象
@@ -233,7 +237,7 @@ app.get("/api/records/all", async (req, res) => {
     // 4. 處理和格式化輸出資料
     const formattedData = allRecords.map((item) => {
       const first = item?.history?.find((item) => item?.role === "user")?.text?.substring(0, 15);
-      return { label: first, value: item.sessionId };
+      return { key: item.sessionId, label: first, value: item.sessionId };
     });
 
     // 5. 返回 JSON 格式的結果
