@@ -47,6 +47,27 @@ app.get("/", (req, res) => {
   res.send("Express 伺服器運行中。請使用 /sse/stream 路由來呼叫 Gemini。");
 });
 
+// 練習expo使用
+app.get("/api/expo", (req, res) => {
+  const data = [
+    { id: 1, name: "HTML" },
+    { id: 2, name: "CSS" },
+    { id: 3, name: "JavaScript" },
+    { id: 4, name: "React" },
+    { id: 5, name: "Vue" },
+    { id: 6, name: "Angular" },
+    { id: 7, name: "PHP" },
+    { id: 8, name: "C#" },
+    { id: 9, name: "C++" },
+    { id: 10, name: "Express" },
+    { id: 11, name: "Goland" },
+    { id: 12, name: "Redis" },
+  ];
+
+  res.status(200).json({ data: data });
+  res.json(data);
+});
+
 const chatSessions = new Map();
 async function checkIntent(config, prompt) {
   const intentInstruction = `
